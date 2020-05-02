@@ -81,7 +81,14 @@ public class GameController_2048 : MonoBehaviour
             set
             {
                 m_number = value;
-                numImage.color = new Color(1f, ((int)Mathf.Log(m_number, 2) * 25 + 160) % 255 / 255f, 50f / 255f, 1f);
+                if (m_number == 0)
+                {
+                    numImage.color = Color.gray;
+                }
+                else
+                {
+                    numImage.color = new Color(1f, ((int)Mathf.Log(m_number, 2) * 25 + 160) % 255 / 255f, 50f / 255f, 1f);
+                }
                 numText.text = m_number.ToString();
             }
         }
