@@ -10,15 +10,32 @@ public class PlaneController : MonoBehaviour
 
     Vector2 moveInput;
 
+    Rigidbody2D rb2d;
+
+    MyCollider myCollider;
+
+    PlayerTimeBack timeBack;
+
+    private void Start()
+    {
+        timeBack = GetComponent<PlayerTimeBack>();
+        rb2d = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<MyCollider>();
+    }
+
     private void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
+        if (!timeBack.isBacking)
+        {
+            moveInput.x = Input.GetAxisRaw("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
 
-        moveInput = Vector2.ClampMagnitude(moveInput, Mathf.Sqrt(2f));
-        
-        moveInput *= Time.deltaTime * flySpeedNormal;
+            moveInput = Vector2.ClampMagnitude(moveInput, Mathf.Sqrt(2f));
 
-        transform.position += new Vector3(moveInput.x, moveInput.y, transform.position.z);
+            moveInput *= Time.deltaTime * flySpeedNormal;
+
+            transform.position += new Vector3(moveInput.x, moveInput.y, 0);
+        }
     }
+
 }
